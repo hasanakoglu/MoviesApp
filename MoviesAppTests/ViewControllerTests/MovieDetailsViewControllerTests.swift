@@ -67,7 +67,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
         let mockResponseModel = MoviesResponseModel.movieResponseModel(for: data)
         mockMovie = mockResponseModel.movies[1]
         cell?.buttonTapped()
-        XCTAssertEqual(mockMovie.fullImageString, "https://image.tmdb.org/t/p/w300/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg")
+        XCTAssertEqual(cell?.movieDescriptionURL?.absoluteString, "https://m.imdb.com/find?q=Dilwale%20Dulhania%20Le%20Jayenge")
     }
     
     func testTableViewCellFavouritesButtonTapped() {

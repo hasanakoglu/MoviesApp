@@ -4,8 +4,8 @@ class MovieDetailsTableViewCell: UITableViewCell {
     private let nameLabel: UILabel = UILabel()
     private let movieImageView: UIImageView = UIImageView()
     private let button = UIButton()
-    private var movieDescriptionURL: URL?
     
+    var movieDescriptionURL: URL?
     let descriptionLabel: UILabel = UILabel()
     let favouriteButton = UIButton()
     var handler: ((UIButton) -> Void)?
@@ -74,7 +74,8 @@ class MovieDetailsTableViewCell: UITableViewCell {
     func update(with movie: Movie) {
         nameLabel.text = movie.title
         descriptionLabel.text = movie.overview == "" ? "No Description" : movie.overview
-        movieDescriptionURL = URL(string: "")
+        guard let urlString = movie.title?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        movieDescriptionURL = URL(string: "https://m.imdb.com/find?q=\(urlString)")
         movieImageView.loadImageFromUrl(urlString: movie.fullImageString)
         updateConstraints()
     }
