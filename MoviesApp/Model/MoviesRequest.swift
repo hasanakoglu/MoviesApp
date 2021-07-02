@@ -1,23 +1,23 @@
 import Foundation
 
-enum CharacterError: Error {
+enum MoviesError: Error {
     case noData
     case jsonError
 }
 
-protocol CharacterRequestProtocol {
-    func fetchCharacters(completion: @escaping(Result<[Movie], CharacterError>) -> Void)
+protocol MoviesRequestProtocol {
+    func fetchMovies(completion: @escaping(Result<[Movie], MoviesError>) -> Void)
 }
 
-class CharacterRequest: CharacterRequestProtocol {
+class MoviesRequest: MoviesRequestProtocol {
     private let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
         self.session = session
     }
     
-    func fetchCharacters(completion: @escaping (Result<[Movie], CharacterError>) -> ()) {
-        let urlString = API.charactersURL
+    func fetchMovies(completion: @escaping (Result<[Movie], MoviesError>) -> ()) {
+        let urlString = API.moviesURL
         guard let url = URL(string: urlString) else { return }
         session.dataTask(with: url) { (data, response, error) in
             guard let jsonData = data else {
@@ -28,8 +28,8 @@ class CharacterRequest: CharacterRequestProtocol {
             do {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(MoviesResponseModel.self, from: jsonData)
-                let characters = response.movies
-                completion(.success(characters))
+                let movies = response.movies
+                completion(.success(movies))
             } catch {
                 completion(.failure(.jsonError))
             }

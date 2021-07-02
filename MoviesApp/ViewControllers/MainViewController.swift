@@ -3,10 +3,10 @@ import UIKit
 class MainViewController: UIViewController {
     let tableViewController: UITableViewController = UITableViewController(style: .plain)
     var tableView: UITableView { return tableViewController.tableView }
-    var viewModel: CharactersViewModelProtocol
+    var viewModel: MoviesViewModelProtocol
     var coordinator: MainViewCoordinator?
     
-    public init(viewModel: CharactersViewModelProtocol) {
+    public init(viewModel: MoviesViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -18,14 +18,14 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        self.title = "Marvel"
+        self.title = "Top-Rated Movies"
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
         setupTableView()
         
-        viewModel.fetchCharacters {
-            self.tableView.reloadData()
+        viewModel.fetchMovies { [weak self] in
+            self?.tableView.reloadData()
         }
     }
     
@@ -33,7 +33,7 @@ class MainViewController: UIViewController {
         addChild(tableViewController)
         view.addSubview(tableView)
         tableView.backgroundColor = .clear
-        tableView.register(CharacterImageCell.self, forCellReuseIdentifier: CharacterImageCell.identifier)
+        tableView.register(MovieImageCell.self, forCellReuseIdentifier: MovieImageCell.identifier)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
@@ -48,23 +48,23 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let character = viewModel.listOfCharacters[indexPath.row]
-        coordinator?.didSelect(character: character)
+        let movie = viewModel.listOfMovies[indexPath.row]
+        coordinator?.didSelect(movie: movie)
     }
 }
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.listOfCharacters.count
+        return viewModel.listOfMovies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CharacterImageCell.identifier, for: indexPath) as! CharacterImageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieImageCell.identifier, for: indexPath) as! MovieImageCell
         cell.selectionStyle = .none
-        let character = viewModel.listOfCharacters[indexPath.row]
+        let movie = viewModel.listOfMovies[indexPath.row]
         
-        cell.img.loadImageFromUrl(urlString: character.thumbnail.full)
-        cell.update(title: character.name, image: cell.img)
+        cell.img.loadImageFromUrl(urlString: movie.fullImageString)
+        cell.update(title: movie.title, image: cell.img)
         return cell
     }
 }

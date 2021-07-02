@@ -1,15 +1,14 @@
 import Foundation
 import UIKit
 
-protocol CharactersViewModelProtocol {
-    var listOfCharacters: [Movie] { get set }
-    var characterImages: [String: UIImage] { get set }
-    func fetchCharacters(completion: @escaping () -> ())
+protocol MoviesViewModelProtocol {
+    var listOfMovies: [Movie] { get set }
+    func fetchMovies(completion: @escaping () -> ())
 }
 
-class CharactersViewModel: CharactersViewModelProtocol {
-    var listOfCharacters = [Movie]()
-    var characterImages = [String: UIImage]()
+class MoviesViewModel: MoviesViewModelProtocol {
+    var listOfMovies = [Movie]()
+    var movieImages = [String: UIImage]()
     let request: MoviesRequestProtocol
     
     let urlSession: URLSession
@@ -19,12 +18,12 @@ class CharactersViewModel: CharactersViewModelProtocol {
         self.request = request
     }
     
-    func fetchCharacters(completion: @escaping () -> ()) {
+    func fetchMovies(completion: @escaping () -> ()) {
         request.fetchMovies { result in
             switch result {
             
-            case .success(let characters):
-                self.listOfCharacters = characters
+            case .success(let movies):
+                self.listOfMovies = movies
                 DispatchQueue.main.async {
                     completion()
                 }

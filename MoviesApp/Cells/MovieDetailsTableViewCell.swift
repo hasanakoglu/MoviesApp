@@ -1,16 +1,16 @@
 import UIKit
 
-class CharacterDetailsTableViewCell: UITableViewCell {
+class MovieDetailsTableViewCell: UITableViewCell {
     private let nameLabel: UILabel = UILabel()
-    private let characterImageView: UIImageView = UIImageView()
+    private let movieImageView: UIImageView = UIImageView()
     private let button = UIButton()
-    private var characterDescriptionURL: URL?
+    private var movieDescriptionURL: URL?
     
     let descriptionLabel: UILabel = UILabel()
     let favouriteButton = UIButton()
     var handler: ((UIButton) -> Void)?
     
-    static let reuseIdentifier = "CharacterDetails"
+    static let reuseIdentifier = "movieDetails"
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,29 +25,29 @@ class CharacterDetailsTableViewCell: UITableViewCell {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         favouriteButton.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        characterImageView.translatesAutoresizingMaskIntoConstraints = false
+        movieImageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(nameLabel)
         contentView.addSubview(favouriteButton)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(characterImageView)
+        contentView.addSubview(movieImageView)
         contentView.addSubview(button)
         
         nameLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         descriptionLabel.numberOfLines = 0
-        characterImageView.contentMode = .scaleAspectFit
+        movieImageView.contentMode = .scaleAspectFit
         button.setTitle("Website", for: .normal)
         button.backgroundColor = .blue
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
-        characterImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        characterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40.0).isActive = true
-        characterImageView.widthAnchor.constraint(equalToConstant: 200.0).isActive = true
-        characterImageView.heightAnchor.constraint(equalToConstant: 200.0).isActive = true
+        movieImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40.0).isActive = true
+        movieImageView.widthAnchor.constraint(equalToConstant: 200.0).isActive = true
+        movieImageView.heightAnchor.constraint(equalToConstant: 200.0).isActive = true
         
-        nameLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 30.0).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: 30.0).isActive = true
         nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0).isActive = true
         nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0).isActive = true
@@ -55,7 +55,7 @@ class CharacterDetailsTableViewCell: UITableViewCell {
         favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
         favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
         favouriteButton.addTarget(self, action: #selector(favouritesButtonPressed(sender:)), for: .touchUpInside)
-        favouriteButton.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 30).isActive = true
+        favouriteButton.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: 30).isActive = true
         favouriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         favouriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         favouriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
@@ -71,16 +71,16 @@ class CharacterDetailsTableViewCell: UITableViewCell {
         button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
-    func update(with character: Movie) {
-        nameLabel.text = character.title
-        descriptionLabel.text = character.overview == "" ? "No Description" : character.overview
-        characterDescriptionURL = URL(string: "")
-        characterImageView.loadImageFromUrl(urlString: character.fullImageString)
+    func update(with movie: Movie) {
+        nameLabel.text = movie.title
+        descriptionLabel.text = movie.overview == "" ? "No Description" : movie.overview
+        movieDescriptionURL = URL(string: "")
+        movieImageView.loadImageFromUrl(urlString: movie.fullImageString)
         updateConstraints()
     }
     
     @objc func buttonTapped() {
-        guard let url = characterDescriptionURL else { return }
+        guard let url = movieDescriptionURL else { return }
         UIApplication.shared.open(url)
     }
     

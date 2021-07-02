@@ -1,10 +1,10 @@
 import UIKit
 
-class CharacterDetailsViewController: UITableViewController {
+class MovieDetailsViewController: UITableViewController {
     private let movie: Movie
-    private var viewModel: CharacterDetailsViewModelProtocol
+    private var viewModel: MovieDetailsViewModelProtocol
     
-    init(movie: Movie, viewModel: CharacterDetailsViewModelProtocol = CharacterDetailsViewModel()) {
+    init(movie: Movie, viewModel: MovieDetailsViewModelProtocol = MovieDetailsViewModel()) {
         self.movie = movie
         self.viewModel = viewModel
         super.init(style: .plain)
@@ -29,7 +29,7 @@ class CharacterDetailsViewController: UITableViewController {
     
     func setupTableView() {
         tableView.dataSource = self
-        tableView.register(CharacterDetailsTableViewCell.self, forCellReuseIdentifier: CharacterDetailsTableViewCell.reuseIdentifier)
+        tableView.register(MovieDetailsTableViewCell.self, forCellReuseIdentifier: MovieDetailsTableViewCell.reuseIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.separatorStyle = .none
@@ -37,13 +37,13 @@ class CharacterDetailsViewController: UITableViewController {
     }
 }
 
-extension CharacterDetailsViewController {
+extension MovieDetailsViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterDetailsTableViewCell.reuseIdentifier, for: indexPath) as? CharacterDetailsTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieDetailsTableViewCell.reuseIdentifier, for: indexPath) as? MovieDetailsTableViewCell else { return UITableViewCell() }
         
         cell.favouriteButton.isSelected = viewModel.buttonSelectedState(movie: movie)
         cell.update(with: movie)

@@ -2,7 +2,7 @@ import Foundation
 
 @testable import MoviesApp
 
-class FakemovieDetailsViewModel: MovieDetailsViewModelProtocol {
+class FakeMovieDetailsViewModel: MovieDetailsViewModelProtocol {
     var favourites: [Movie] = []
         
     func viewWillAppear() {

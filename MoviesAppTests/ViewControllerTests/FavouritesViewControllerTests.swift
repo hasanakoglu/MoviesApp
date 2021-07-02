@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import Marvel_App
+@testable import MoviesApp
 
 class FavouritesViewControllerTests: XCTestCase {
     var subject: FavouritesViewController!
@@ -28,34 +28,34 @@ class FavouritesViewControllerTests: XCTestCase {
     }
     
     func testTableViewNumberOfRowsInSection() {
-        let characters = MarvelCharacter.characterStub()
-        subject.viewModel.favourites.append(characters)
+        let movies = Movie.movieStub()
+        subject.viewModel.favourites.append(movies)
         subject.viewWillAppear(true)
         XCTAssertEqual(subject.tableView.numberOfSections, 1)
     }
     
     func testTableViewCellForRowAt() {
-        let characters = MarvelCharacter.characterStub()
-        subject.viewModel.favourites.append(characters)
+        let movies = Movie.movieStub()
+        subject.viewModel.favourites.append(movies)
         subject.viewDidLoad()
-        let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? CharacterImageCell
+        let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
         XCTAssertNotNil(cell)
-        XCTAssertEqual(cell?.nameLabel.text, characters.name)
+        XCTAssertEqual(cell?.nameLabel.text, movies.title)
     }
     
     func testTableViewDidSelectRowAt() {
-        let characters = MarvelCharacter.characterStub()
-        subject.viewModel.favourites.append(characters)
+        let movies = Movie.movieStub()
+        subject.viewModel.favourites.append(movies)
         subject.viewDidLoad()
         let cell: () = subject.tableView(subject.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
         XCTAssertNotNil(cell)
     }
     
     func testImageUrlIsCorrect() {
-        let characters = MarvelCharacter.characterStub()
-        subject.viewModel.favourites.append(characters)
+        let movies = Movie.movieStub()
+        subject.viewModel.favourites.append(movies)
         subject.viewDidLoad()
-        let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? CharacterImageCell
-        XCTAssertNotNil(cell?.img.loadImageFromUrl(urlString: characters.imageURL!.absoluteString))
+        let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
+        XCTAssertNotNil(cell?.img.loadImageFromUrl(urlString: movies.fullImageString))
     }
 }

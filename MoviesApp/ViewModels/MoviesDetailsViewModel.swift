@@ -1,14 +1,14 @@
 import Foundation
 
-protocol CharacterDetailsViewModelProtocol {
+protocol MovieDetailsViewModelProtocol {
     var favourites: [Movie] { get set }
     func viewWillAppear()
-    func buttonSelectedState(character: Movie) -> Bool
-    func addToFavourites(character: Movie)
-    func removeFromFavourites(character: Movie)
+    func buttonSelectedState(movie: Movie) -> Bool
+    func addToFavourites(movie: Movie)
+    func removeFromFavourites(movie: Movie)
 }
 
-class CharacterDetailsViewModel: CharacterDetailsViewModelProtocol {
+class MovieDetailsViewModel: MovieDetailsViewModelProtocol {
     let favouritesManager: FavouritesManagerProtocol
     var favourites = [Movie]()
     
@@ -20,22 +20,22 @@ class CharacterDetailsViewModel: CharacterDetailsViewModelProtocol {
         favourites = favouritesManager.retrieveFavourites()
     }
     
-    func buttonSelectedState(character: Movie) -> Bool {
-        if favourites.contains(where: { $0.title == character.title }) {
+    func buttonSelectedState(movie: Movie) -> Bool {
+        if favourites.contains(where: { $0.title == movie.title }) {
             return true
         } else {
             return false
         }
     }
     
-    func addToFavourites(character: Movie) {
-        if !favourites.contains(where: { $0.title == character.title }) {
-            favourites.append(character)
+    func addToFavourites(movie: Movie) {
+        if !favourites.contains(where: { $0.title == movie.title }) {
+            favourites.append(movie)
         }
         favouritesManager.addToFavourites(for: favourites)
     }
     
-    func removeFromFavourites(character: Movie) {
-        favouritesManager.removeFromFavourites(character: character)
+    func removeFromFavourites(movie: Movie) {
+        favouritesManager.removeFromFavourites(movie: movie)
     }
 }

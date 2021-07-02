@@ -36,7 +36,7 @@ class FavouritesViewController: UIViewController {
         addChild(tableViewController)
         view.addSubview(tableView)
         tableView.backgroundColor = .clear
-        tableView.register(CharacterImageCell.self, forCellReuseIdentifier: CharacterImageCell.identifier)
+        tableView.register(MovieImageCell.self, forCellReuseIdentifier: MovieImageCell.identifier)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
@@ -51,8 +51,8 @@ class FavouritesViewController: UIViewController {
 
 extension FavouritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let character = viewModel.favourites[indexPath.row]
-        coordinator?.didSelect(character: character)
+        let movie = viewModel.favourites[indexPath.row]
+        coordinator?.didSelect(movie: movie)
     }
 }
 
@@ -62,12 +62,12 @@ extension FavouritesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CharacterImageCell.identifier, for: indexPath) as! CharacterImageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieImageCell.identifier, for: indexPath) as! MovieImageCell
         cell.selectionStyle = .none
         
-        let character = viewModel.favourites[indexPath.row]
-        cell.img.loadImageFromUrl(urlString: character.thumbnail.full)
-        cell.update(title: character.name, image: cell.img)
+        let movie = viewModel.favourites[indexPath.row]
+        cell.img.loadImageFromUrl(urlString: movie.fullImageString)
+        cell.update(title: movie.title, image: cell.img)
         return cell
     }
 }

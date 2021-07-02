@@ -6,7 +6,7 @@ import XCTest
 class FavouritesViewModelTests: XCTestCase {
     var subject: FavouritesViewModel!
     var fakeFavouritesManager: FakeFavouritesManager!
-    let character = MarvelCharacter.characterStub()
+    let movie = Movie.movieStub()
 
     override func setUp() {
         super.setUp()

@@ -16,7 +16,7 @@ class MoviesViewModelTests: XCTestCase {
         subject = nil
     }
     
-    func testFetchmovies() {
+    func testFetchMovies() {
         mockMovieRequest.fetchMoviesCalled = true
         subject.fetchMovies {
         }

@@ -3,10 +3,10 @@ import XCTest
 
 class MainViewControllerTests: XCTestCase {
     var subject: MainViewController!
-    var fakeViewModel: FakeCharactersViewModel!
+    var fakeViewModel: FakeMoviesViewModel!
 
     override func setUp() {
-        fakeViewModel = FakeCharactersViewModel()
+        fakeViewModel = FakeMoviesViewModel()
         subject = MainViewController(viewModel: fakeViewModel)
     }
 
@@ -24,31 +24,31 @@ class MainViewControllerTests: XCTestCase {
 
         XCTAssertTrue(delegate === subject)
         XCTAssertTrue(dataSource === subject)
-        XCTAssertTrue(fakeViewModel.fetchCharactersCalled)
+        XCTAssertTrue(fakeViewModel.fetchMoviesCalled)
     }
     
     func testTableViewCellForRowAt() {
-        let characters = MarvelCharacter.characterStub()
-        subject.viewModel.listOfCharacters.append(characters)
+        let movies = Movie.movieStub()
+        subject.viewModel.listOfMovies.append(movies)
         subject.viewDidLoad()
-        let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? CharacterImageCell
+        let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
         XCTAssertNotNil(cell)
-        XCTAssertEqual(cell?.nameLabel.text, characters.name)
+        XCTAssertEqual(cell?.nameLabel.text, movies.title)
     }
     
     func testTableViewDidSelectRowAt() {
-        let characters = MarvelCharacter.characterStub()
-        subject.viewModel.listOfCharacters.append(characters)
+        let movies = Movie.movieStub()
+        subject.viewModel.listOfMovies.append(movies)
         subject.viewDidLoad()
         let cell: () = subject.tableView(subject.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
         XCTAssertNotNil(cell)
     }
     
     func testImageUrlIsCorrect() {
-        let characters = MarvelCharacter.characterStub()
-        subject.viewModel.listOfCharacters.append(characters)
+        let movies = Movie.movieStub()
+        subject.viewModel.listOfMovies.append(movies)
         subject.viewDidLoad()
-        let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? CharacterImageCell
-        XCTAssertNotNil(cell?.img.loadImageFromUrl(urlString: characters.imageURL!.absoluteString))
+        let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
+        XCTAssertNotNil(cell?.img.loadImageFromUrl(urlString: movies.fullImageString))
     }
 }

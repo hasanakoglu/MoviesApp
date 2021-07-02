@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-final class CharacterImageCell: UITableViewCell {
+final class MovieImageCell: UITableViewCell {
     static let identifier: String = "cell"
     var nameLabel: UILabel = UILabel()
     var img: UIImageView = UIImageView()

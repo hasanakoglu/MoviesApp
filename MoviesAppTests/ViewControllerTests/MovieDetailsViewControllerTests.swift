@@ -5,13 +5,13 @@ import XCTest
 class MovieDetailsViewControllerTests: XCTestCase {
     var subject: MovieDetailsViewController!
     var mockMovie: Movie!
-    var fakeViewModel: FakemovieDetailsViewModel!
+    var fakeViewModel: FakeMovieDetailsViewModel!
     
     override func setUp() {
         let data = MovieRequestTests.mockData
         let mockResponseModel = MoviesResponseModel.movieResponseModel(for: data)
         mockMovie = mockResponseModel.movies[0]
-        fakeViewModel = FakemovieDetailsViewModel()
+        fakeViewModel = FakeMovieDetailsViewModel()
         
         let navigationController = UINavigationController()
         subject = MovieDetailsViewController(movie: mockMovie, viewModel: fakeViewModel)
@@ -60,13 +60,14 @@ class MovieDetailsViewControllerTests: XCTestCase {
         XCTAssertEqual(cell?.descriptionLabel.text, "No Description")
     }
     
+    //fix this
     func testTableViewCellButtonTappedOpensCorrectURL() {
         let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieDetailsTableViewCell
         let data = MovieRequestTests.mockData
         let mockResponseModel = MoviesResponseModel.movieResponseModel(for: data)
         mockMovie = mockResponseModel.movies[1]
         cell?.buttonTapped()
-        XCTAssertEqual(mockMovie.overview, "http://marvel.com/comics/movies/1009610/spider-man?utm_campaign=apiRef&utm_source=ff3d4847092294acc724123682af904b")
+        XCTAssertEqual(mockMovie.fullImageString, "https://image.tmdb.org/t/p/w300/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg")
     }
     
     func testTableViewCellFavouritesButtonTapped() {
