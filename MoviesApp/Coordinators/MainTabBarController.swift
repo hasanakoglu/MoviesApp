@@ -5,7 +5,7 @@ final class MainTabBarController: UITabBarController {
     lazy var homeTab: UITabBarItem = {
         let defaultImage = UIImage(systemName: "house")
         let selectedImage = UIImage(systemName: "house.fill")
-        return UITabBarItem(title: "Main", image: defaultImage, selectedImage: selectedImage)
+        return UITabBarItem(title: "Home", image: defaultImage, selectedImage: selectedImage)
     }()
     
     lazy var favouritesTab: UITabBarItem = {

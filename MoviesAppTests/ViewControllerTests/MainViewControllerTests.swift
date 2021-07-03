@@ -33,7 +33,7 @@ class MainViewControllerTests: XCTestCase {
         subject.viewDidLoad()
         let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
         XCTAssertNotNil(cell)
-        XCTAssertEqual(cell?.nameLabel.text, movies.title)
+        XCTAssertEqual(cell?.titleLabel.text, movies.title)
     }
     
     func testTableViewDidSelectRowAt() {
@@ -49,6 +49,6 @@ class MainViewControllerTests: XCTestCase {
         subject.viewModel.listOfMovies.append(movies)
         subject.viewDidLoad()
         let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
-        XCTAssertNotNil(cell?.img.loadImageFromUrl(urlString: movies.fullImageString))
+        XCTAssertNotNil(cell?.posterImg.loadImageFromUrl(urlString: movies.fullImageString))
     }
 }

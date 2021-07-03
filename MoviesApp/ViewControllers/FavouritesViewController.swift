@@ -44,6 +44,7 @@ class FavouritesViewController: UIViewController {
         tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -66,8 +67,9 @@ extension FavouritesViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         
         let movie = viewModel.favourites[indexPath.row]
-        cell.img.loadImageFromUrl(urlString: movie.fullImageString)
-        cell.update(title: movie.title, image: cell.img)
+        cell.posterImg.loadImageFromUrl(urlString: movie.fullImageString)
+        cell.update(title: movie.title, image: cell.posterImg, year: movie.year, rating: movie.rate)
+        
         return cell
     }
 }
