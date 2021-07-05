@@ -1,7 +1,7 @@
 import Foundation
 
 protocol FavouritesViewModelProtocol {
-    var favourites: [Movie] { get set }
+    var favourites: [Movie] { get }
     func viewWillAppear()
 }
 

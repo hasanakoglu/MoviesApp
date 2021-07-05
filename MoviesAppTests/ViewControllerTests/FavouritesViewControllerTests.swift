@@ -29,31 +29,23 @@ class FavouritesViewControllerTests: XCTestCase {
     
     func testTableViewNumberOfRowsInSection() {
         let movies = Movie.movieStub()
-        subject.viewModel.favourites.append(movies)
+        fakeViewModel.favourites.append(movies)
         subject.viewWillAppear(true)
         XCTAssertEqual(subject.tableView.numberOfSections, 1)
     }
     
     func testTableViewCellForRowAt() {
         let movies = Movie.movieStub()
-        subject.viewModel.favourites.append(movies)
+        fakeViewModel.favourites.append(movies)
         subject.viewDidLoad()
         let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
         XCTAssertNotNil(cell)
         XCTAssertEqual(cell?.titleLabel.text, movies.title)
     }
     
-    func testTableViewDidSelectRowAt() {
-        let movies = Movie.movieStub()
-        subject.viewModel.favourites.append(movies)
-        subject.viewDidLoad()
-        let cell: () = subject.tableView(subject.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
-        XCTAssertNotNil(cell)
-    }
-    
     func testImageUrlIsCorrect() {
         let movies = Movie.movieStub()
-        subject.viewModel.favourites.append(movies)
+        fakeViewModel.favourites.append(movies)
         subject.viewDidLoad()
         let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
         XCTAssertNotNil(cell?.posterImg.loadImageFromUrl(urlString: movies.fullImageString))

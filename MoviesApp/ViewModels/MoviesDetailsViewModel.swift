@@ -1,7 +1,7 @@
 import Foundation
 
 protocol MovieDetailsViewModelProtocol {
-    var favourites: [Movie] { get set }
+    var favourites: [Movie] { get }
     func viewWillAppear()
     func buttonSelectedState(movie: Movie) -> Bool
     func addToFavourites(movie: Movie)

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol MoviesViewModelProtocol {
-    var listOfMovies: [Movie] { get set }
+    var listOfMovies: [Movie] { get } 
     func fetchMovies(completion: @escaping () -> ())
 }
 

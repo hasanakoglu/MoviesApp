@@ -29,24 +29,16 @@ class MainViewControllerTests: XCTestCase {
     
     func testTableViewCellForRowAt() {
         let movies = Movie.movieStub()
-        subject.viewModel.listOfMovies.append(movies)
+        fakeViewModel.listOfMovies.append(movies)
         subject.viewDidLoad()
         let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
         XCTAssertNotNil(cell)
         XCTAssertEqual(cell?.titleLabel.text, movies.title)
     }
     
-    func testTableViewDidSelectRowAt() {
-        let movies = Movie.movieStub()
-        subject.viewModel.listOfMovies.append(movies)
-        subject.viewDidLoad()
-        let cell: () = subject.tableView(subject.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
-        XCTAssertNotNil(cell)
-    }
-    
     func testImageUrlIsCorrect() {
         let movies = Movie.movieStub()
-        subject.viewModel.listOfMovies.append(movies)
+        fakeViewModel.listOfMovies.append(movies)
         subject.viewDidLoad()
         let cell = subject.tableView(subject.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? MovieImageCell
         XCTAssertNotNil(cell?.posterImg.loadImageFromUrl(urlString: movies.fullImageString))

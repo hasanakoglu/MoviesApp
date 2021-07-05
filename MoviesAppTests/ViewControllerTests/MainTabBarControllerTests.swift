@@ -20,10 +20,10 @@ final class AppTabBarControllerTests: XCTestCase {
     }
     
     func testMainViewCoordinator() {
-        let mainViewCoordinator = subject.coordinators.compactMap { $0 as? MockListCoordinator }.first
+        let mainViewCoordinator = subject.coordinators.compactMap { $0 as? MockMainCoordinator }.first
         XCTAssertNotNil(mainViewCoordinator)
         XCTAssertTrue(mainViewCoordinator?.startCalled == true)
-        XCTAssertTrue(subject.viewControllers?.first === mockCoordinatorFactory.listRouter)
+        XCTAssertTrue(subject.viewControllers?.first === mockCoordinatorFactory.mainRouter)
     }
     
     func testFavouritesCoordinator() {
@@ -35,10 +35,10 @@ final class AppTabBarControllerTests: XCTestCase {
 }
 
 final class MockCoordinatorFactory: CoordinatorFactoryProtocol {
-    var listRouter: Router?
+    var mainRouter: Router?
     func makeMainViewCoordinator(router: Router) -> Coordinator {
-        listRouter = router
-        return MockListCoordinator()
+        mainRouter = router
+        return MockMainCoordinator()
     }
     
     var favouriteRouter: Router?
@@ -62,5 +62,5 @@ class MockCoordinator: Coordinator {
     }
 }
 
-final class MockListCoordinator: MockCoordinator { }
+final class MockMainCoordinator: MockCoordinator { }
 final class MockFavouriteCoordinator: MockCoordinator { }
