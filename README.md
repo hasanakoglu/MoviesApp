@@ -7,7 +7,7 @@ An app designed to display the top rated movies using MVVM-C
  Architecture 
  - The app uses MVVM-C Architecture with dependency injection and testing
  - Designed using UIKit but can easily be changed to SwiftUI and Combine
- - Use of mocks in testing to cover classes with external dependencies in unit tests
+ - Use of mocks in testing to cover classes with external dependencies for unit tests
  
  Future Improvements
  - Add snapshot testing
